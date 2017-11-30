@@ -33,12 +33,10 @@ class Dialog: UIView {
 
   override func updateConstraints() {
     super.updateConstraints()
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(self.topAnchor.constraint(equalTo: superview!.topAnchor))
-    constraints.append(self.leadingAnchor.constraint(equalTo: superview!.leadingAnchor))
-    constraints.append(self.trailingAnchor.constraint(equalTo: superview!.trailingAnchor))
-    constraints.append(self.bottomAnchor.constraint(equalTo: superview!.bottomAnchor))
-    NSLayoutConstraint.activate(constraints)
+    self.topAnchor(equal: superview!.topAnchor)
+    self.bottomAnchor(equal: superview!.bottomAnchor)
+    self.trailingAnchor(equal: superview!.trailingAnchor)
+    self.leadingAnchor(equal: superview!.leadingAnchor)
   }
 
   private func insertBackgroundView() {
@@ -168,4 +166,3 @@ class Dialog: UIView {
     }
   }
 }
-
