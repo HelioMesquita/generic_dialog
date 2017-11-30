@@ -119,7 +119,9 @@ class Dialog: UIView {
     let button = UIButton(frame: .zero)
     button.setTitle(title, for: .normal)
     button.setTitleColor(UIColor.black, for: .normal)
+    button.layer.borderWidth = 1
     button.accessibilityIdentifier = "firstButton"
+    button.layer.cornerRadius = 4
     let containerView = getContainerView()
     containerView.addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
@@ -136,8 +138,10 @@ class Dialog: UIView {
   func insertSecondButton(_ title: String) {
     let button = UIButton(frame: .zero)
     button.setTitle(title, for: .normal)
-    button.setTitleColor(UIColor.black, for: .normal)
+    button.setTitleColor(UIColor.white, for: .normal)
+    button.backgroundColor = UIColor.blue
     button.accessibilityIdentifier = "secondButton"
+    button.layer.cornerRadius = 4
     let containerView = getContainerView()
     containerView.addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
