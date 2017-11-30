@@ -5,6 +5,18 @@ class ViewController: UIViewController {
     let dialog = Dialog(frame: .zero)
     self.view.addSubview(dialog)
     dialog.setView()
+
+    let button = dialog.getFirstButton() as! UIButton
+    button.addTarget(self, action: #selector(butao1), for: .touchUpInside)
+
+  }
+
+  func butao1() {
+    print("target button 1")
+  }
+
+  func butao2() {
+
   }
 }
 
@@ -127,7 +139,7 @@ class Dialog: UIView {
     let button = UIButton(frame: .zero)
     button.setTitle("Butao", for: .normal)
     button.setTitleColor(UIColor.black, for: .normal)
-    button.accessibilityIdentifier = "button1"
+    button.accessibilityIdentifier = "firstButton"
     let containerView = getContainerView()
     containerView.addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
@@ -145,12 +157,12 @@ class Dialog: UIView {
     let button = UIButton(frame: .zero)
     button.setTitle("", for: .normal)
     button.setTitleColor(UIColor.black, for: .normal)
-    button.accessibilityIdentifier = "button2"
+    button.accessibilityIdentifier = "secondButton"
     let containerView = getContainerView()
     containerView.addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
     var constraints = [NSLayoutConstraint]()
-    let button1 = getButton()
+    let button1 = getFirstButton()
     constraints.append(button.topAnchor.constraint(equalTo: button1.bottomAnchor, constant: 10))
     constraints.append(containerView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20))
     constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
@@ -198,9 +210,16 @@ class Dialog: UIView {
     return description!
   }
 
-  private func getButton() -> UIView {
+  func getFirstButton() -> UIView {
     let button = getContainerView().subviews.first { (view) -> Bool in
-      return view.accessibilityIdentifier == "button1"
+      return view.accessibilityIdentifier == "firstButton"
+    }
+    return button!
+  }
+
+  func getSecondButton() -> UIView {
+    let button = getContainerView().subviews.first { (view) -> Bool in
+      return view.accessibilityIdentifier == "secondButton"
     }
     return button!
   }
