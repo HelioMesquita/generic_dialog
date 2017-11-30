@@ -7,14 +7,17 @@ class Dialog: UIView {
     translatesAutoresizingMaskIntoConstraints = false
   }
 
-  func setView(image: UIImage, title: String, description: String, firstButtonTitle: String, secondButtonTitle: String) {
+  func create(image: UIImage, title: String, description: String, buttonTitle: String) {
     insertBackgroundView()
     insertContainer()
     insertImageView(image)
     insertTitle(title)
     insertDescription(description)
-    insertFirstButton(firstButtonTitle)
-    insertSecondButton(secondButtonTitle)
+    insertFirstButton(buttonTitle)
+  }
+
+  func addButton(title: String) {
+    insertSecondButton(title)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -118,8 +121,8 @@ class Dialog: UIView {
   func insertFirstButton(_ title: String) {
     let button = UIButton(frame: .zero)
     button.setTitle(title, for: .normal)
-    button.setTitleColor(UIColor.black, for: .normal)
-    button.layer.borderWidth = 1
+    button.setTitleColor(UIColor.white, for: .normal)
+    button.backgroundColor = UIColor.blue
     button.accessibilityIdentifier = "firstButton"
     button.layer.cornerRadius = 4
     let containerView = getContainerView()
@@ -128,32 +131,32 @@ class Dialog: UIView {
     var constraints = [NSLayoutConstraint]()
     let description = getDescription()
     constraints.append(button.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 24))
-    constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-    constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-    constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    NSLayoutConstraint.activate(constraints)
-    containerView.layoutIfNeeded()
-  }
-
-  func insertSecondButton(_ title: String) {
-    let button = UIButton(frame: .zero)
-    button.setTitle(title, for: .normal)
-    button.setTitleColor(UIColor.white, for: .normal)
-    button.backgroundColor = UIColor.blue
-    button.accessibilityIdentifier = "secondButton"
-    button.layer.cornerRadius = 4
-    let containerView = getContainerView()
-    containerView.addSubview(button)
-    button.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    let firstButton = getFirstButton()
-    constraints.append(button.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 8))
     constraints.append(containerView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20))
     constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
     constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
     NSLayoutConstraint.activate(constraints)
-    containerView.layoutIfNeeded()
+  }
+
+  func insertSecondButton(_ title: String) {
+//    let button = UIButton(frame: .zero)
+//    button.setTitle(title, for: .normal)
+//    button.setTitleColor(UIColor.white, for: .normal)
+//    button.backgroundColor = UIColor.blue
+//    button.accessibilityIdentifier = "secondButton"
+//    button.layer.borderWidth = 1
+//    button.layer.cornerRadius = 4
+//    let containerView = getContainerView()
+//    containerView.addSubview(button)
+//    button.translatesAutoresizingMaskIntoConstraints = false
+//    var constraints = [NSLayoutConstraint]()
+//    let firstButton = getFirstButton()
+//    constraints.append(button.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 8))
+//    constraints.append(containerView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20))
+//    constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
+//    constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
+//    constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
+//    NSLayoutConstraint.activate(constraints)
   }
 
   func dismissAction(sender: UITapGestureRecognizer) {
