@@ -16,7 +16,7 @@ class Dialog: UIView {
   }
 
   func setView() {
-    configureBackground()
+    insertBackgroundView()
     insertContainer()
     insertImageView()
     insertTitle()
@@ -31,10 +31,25 @@ class Dialog: UIView {
   override func updateConstraints() {
     super.updateConstraints()
     var constraints = [NSLayoutConstraint]()
-    constraints.append(self.centerXAnchor.constraint(equalTo: superview!.centerXAnchor))
-    constraints.append(self.centerYAnchor.constraint(equalTo: superview!.centerYAnchor))
-    constraints.append(self.widthAnchor.constraint(equalToConstant: superview!.frame.width))
-    constraints.append(self.heightAnchor.constraint(equalToConstant: superview!.frame.height))
+    constraints.append(self.topAnchor.constraint(equalTo: superview!.topAnchor))
+    constraints.append(self.leadingAnchor.constraint(equalTo: superview!.leadingAnchor))
+    constraints.append(self.trailingAnchor.constraint(equalTo: superview!.trailingAnchor))
+    constraints.append(self.bottomAnchor.constraint(equalTo: superview!.bottomAnchor))
+    NSLayoutConstraint.activate(constraints)
+  }
+
+  private func insertBackgroundView() {
+    let backgroundView = UIView(frame: .zero)
+    backgroundView.backgroundColor = UIColor.black
+    let dismissGesture = UITapGestureRecognizer(target: self, action:  #selector(dismissAction))
+    backgroundView.addGestureRecognizer(dismissGesture)
+    self.addSubview(backgroundView)
+    backgroundView.translatesAutoresizingMaskIntoConstraints = false
+    var constraints = [NSLayoutConstraint]()
+    constraints.append(backgroundView.topAnchor.constraint(equalTo: superview!.topAnchor))
+    constraints.append(backgroundView.leadingAnchor.constraint(equalTo: superview!.leadingAnchor))
+    constraints.append(backgroundView.trailingAnchor.constraint(equalTo: superview!.trailingAnchor))
+    constraints.append(backgroundView.bottomAnchor.constraint(equalTo: superview!.bottomAnchor))
     NSLayoutConstraint.activate(constraints)
   }
 
@@ -132,12 +147,6 @@ class Dialog: UIView {
     constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     NSLayoutConstraint.activate(constraints)
     containerView.layoutIfNeeded()
-  }
-
-  func configureBackground() {
-    backgroundColor = UIColor.black
-    let dismissGesture = UITapGestureRecognizer(target: self, action:  #selector(dismissAction))
-    self.addGestureRecognizer(dismissGesture)
   }
 
   func dismissAction(sender: UITapGestureRecognizer) {
