@@ -21,7 +21,8 @@ class Dialog: UIView {
     insertImageView()
     insertTitle()
     insertDescription()
-    insertButton()
+    insertButton1()
+    insertButton2()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -95,11 +96,8 @@ class Dialog: UIView {
     containerView.addSubview(label)
     label.translatesAutoresizingMaskIntoConstraints = false
     var constraints = [NSLayoutConstraint]()
-    if let image = getImage() {
-      constraints.append(label.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20))
-    } else {
-      constraints.append(label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20))
-    }
+    let image = getImage()
+    constraints.append(label.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20))
     constraints.append(label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
     constraints.append(label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     constraints.append(label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
@@ -117,34 +115,47 @@ class Dialog: UIView {
     containerView.addSubview(description)
     description.translatesAutoresizingMaskIntoConstraints = false
     var constraints = [NSLayoutConstraint]()
-    if let title = getTitle() {
-      constraints.append(description.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10))
-    } else {
-      constraints.append(description.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20))
-    }
+    let title = getTitle()
+    constraints.append(description.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10))
     constraints.append(description.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
     constraints.append(description.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
     constraints.append(description.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     NSLayoutConstraint.activate(constraints)
   }
 
-  func insertButton() {
+  func insertButton1() {
     let button = UIButton(frame: .zero)
     button.setTitle("Butao", for: .normal)
     button.setTitleColor(UIColor.black, for: .normal)
-    button.accessibilityIdentifier = "button"
+    button.accessibilityIdentifier = "button1"
     let containerView = getContainerView()
     containerView.addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
     var constraints = [NSLayoutConstraint]()
-    if let description = getDescription() {
-      constraints.append(button.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 10))
-    } else {
-      constraints.append(button.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20))
-    }
+    let description = getDescription()
+    constraints.append(button.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 10))
+    constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
+    constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
+    constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
+    NSLayoutConstraint.activate(constraints)
+    containerView.layoutIfNeeded()
+  }
+
+  func insertButton2() {
+    let button = UIButton(frame: .zero)
+    button.setTitle("", for: .normal)
+    button.setTitleColor(UIColor.black, for: .normal)
+    button.accessibilityIdentifier = "button2"
+    let containerView = getContainerView()
+    containerView.addSubview(button)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    var constraints = [NSLayoutConstraint]()
+    let button1 = getButton()
+    constraints.append(button.topAnchor.constraint(equalTo: button1.bottomAnchor, constant: 10))
     constraints.append(containerView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20))
     constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
     constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
+    constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
     NSLayoutConstraint.activate(constraints)
     containerView.layoutIfNeeded()
   }
@@ -166,24 +177,31 @@ class Dialog: UIView {
     return containerView!
   }
 
-  private func getImage() -> UIView? {
+  private func getImage() -> UIView {
     let image = getContainerView().subviews.first { (view) -> Bool in
       return view.accessibilityIdentifier == "imageView"
     }
-    return image
+    return image!
   }
 
-  private func getTitle() -> UIView? {
+  private func getTitle() -> UIView {
     let title = getContainerView().subviews.first { (view) -> Bool in
       return view.accessibilityIdentifier == "titleLabel"
     }
-    return title
+    return title!
   }
 
-  private func getDescription() -> UIView? {
+  private func getDescription() -> UIView {
     let description = getContainerView().subviews.first { (view) -> Bool in
       return view.accessibilityIdentifier == "descriptionLabel"
     }
-    return description
+    return description!
+  }
+
+  private func getButton() -> UIView {
+    let button = getContainerView().subviews.first { (view) -> Bool in
+      return view.accessibilityIdentifier == "button1"
+    }
+    return button!
   }
 }
