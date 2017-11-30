@@ -59,13 +59,11 @@ class Dialog: UIView {
     containerView.layer.cornerRadius = 6
     self.addSubview(containerView)
     containerView.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(containerView.centerXAnchor.constraint(equalTo: self.centerXAnchor))
-    constraints.append(containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor))
-    constraints.append(containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150))
-    constraints.append(containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16))
-    constraints.append(containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16))
-    NSLayoutConstraint.activate(constraints)
+    containerView.horizontalCenter(equal: centerXAnchor)
+    containerView.verticalCenter(equal: centerYAnchor)
+    containerView.heightAnchor(greater: 150)
+    containerView.trailingAnchor(equal: trailingAnchor, constant: -16)
+    containerView.leadingAnchor(equal: leadingAnchor, constant: 16)
   }
 
   func insertImageView(_ image: UIImage) {
