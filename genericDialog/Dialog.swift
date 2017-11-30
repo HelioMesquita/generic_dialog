@@ -13,11 +13,11 @@ class Dialog: UIView {
     insertImageView(image)
     insertTitle(title)
     insertDescription(description)
-    insertFirstButton(buttonTitle)
+    insertFilledButton(buttonTitle)
   }
 
   func addButton(title: String) {
-    insertSecondButton(title)
+    insertBorderedButton(title)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -118,7 +118,7 @@ class Dialog: UIView {
     NSLayoutConstraint.activate(constraints)
   }
 
-  func insertFirstButton(_ title: String) {
+  func insertFilledButton(_ title: String) {
     let button = UIButton(frame: .zero)
     button.setTitle(title, for: .normal)
     button.setTitleColor(UIColor.white, for: .normal)
@@ -138,25 +138,46 @@ class Dialog: UIView {
     NSLayoutConstraint.activate(constraints)
   }
 
-  func insertSecondButton(_ title: String) {
-//    let button = UIButton(frame: .zero)
-//    button.setTitle(title, for: .normal)
-//    button.setTitleColor(UIColor.white, for: .normal)
-//    button.backgroundColor = UIColor.blue
-//    button.accessibilityIdentifier = "secondButton"
-//    button.layer.borderWidth = 1
-//    button.layer.cornerRadius = 4
-//    let containerView = getContainerView()
-//    containerView.addSubview(button)
-//    button.translatesAutoresizingMaskIntoConstraints = false
-//    var constraints = [NSLayoutConstraint]()
-//    let firstButton = getFirstButton()
-//    constraints.append(button.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 8))
-//    constraints.append(containerView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20))
-//    constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-//    constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-//    constraints.append(button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-//    NSLayoutConstraint.activate(constraints)
+  func insertBorderedButton(_ title: String) {
+    let borderedButton = UIButton(frame: .zero)
+    borderedButton.setTitle(title, for: .normal)
+    borderedButton.setTitleColor(UIColor.blue, for: .normal)
+    borderedButton.accessibilityIdentifier = "secondButton"
+    borderedButton.layer.borderWidth = 1
+    borderedButton.layer.cornerRadius = 4
+    let dialogBox = getContainerView()
+    dialogBox.addSubview(borderedButton)
+    borderedButton.translatesAutoresizingMaskIntoConstraints = false
+
+    let filledButton = getFilledButton()
+//    NSLayoutConstraint.deactivate(filledButton.constraints)
+    let constraintsFirstButton = filledButton.constraints
+    filledButton.removeConstraints(constraintsFirstButton)
+    filledButton.layoutIfNeeded()
+    var constraints = [NSLayoutConstraint]()
+
+    //botao de cima
+    let description = getDescription()
+//    constraints.append(borderedButton.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 24))
+//    constraints.append(borderedButton.centerXAnchor.constraint(equalTo: dialogBox.centerXAnchor))
+//    constraints.append(borderedButton.leadingAnchor.constraint(equalTo: dialogBox.leadingAnchor, constant: 16))
+//    constraints.append(borderedButton.trailingAnchor.constraint(equalTo: dialogBox.trailingAnchor, constant: -16))
+//
+//    // botao de baixo
+//    constraints.append(filledButton.topAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 8))
+//    constraints.append(dialogBox.bottomAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 20))
+//    constraints.append(filledButton.centerXAnchor.constraint(equalTo: dialogBox.centerXAnchor))
+//    constraints.append(filledButton.leadingAnchor.constraint(equalTo: dialogBox.leadingAnchor, constant: 16))
+//    constraints.append(filledButton.trailingAnchor.constraint(equalTo: dialogBox.trailingAnchor, constant: -16))
+
+
+//    constraints.append(filledButton.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 24))
+//    constraints.append(dialogBox.bottomAnchor.constraint(equalTo: filledButton.bottomAnchor, constant: 20))
+//    constraints.append(filledButton.centerXAnchor.constraint(equalTo: dialogBox.centerXAnchor))
+//    constraints.append(filledButton.leadingAnchor.constraint(equalTo: dialogBox.leadingAnchor, constant: 16))
+//    constraints.append(filledButton.trailingAnchor.constraint(equalTo: dialogBox.trailingAnchor, constant: -16))
+
+    NSLayoutConstraint.activate(constraints)
   }
 
   func dismissAction(sender: UITapGestureRecognizer) {
@@ -197,18 +218,18 @@ class Dialog: UIView {
     return description!
   }
 
-  func getFirstButton() -> UIView {
+  func getFilledButton() -> UIView {
     let button = getContainerView().subviews.first { (view) -> Bool in
       return view.accessibilityIdentifier == "firstButton"
     }
     return button!
   }
 
-  func getSecondButton() -> UIView {
+  func getBorderedButton() -> UIButton {
     let button = getContainerView().subviews.first { (view) -> Bool in
       return view.accessibilityIdentifier == "secondButton"
     }
-    return button!
+    return button! as! UIButton
   }
 }
 
