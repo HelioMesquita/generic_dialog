@@ -46,12 +46,10 @@ class Dialog: UIView {
     backgroundView.addGestureRecognizer(dismissGesture)
     self.addSubview(backgroundView)
     backgroundView.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(backgroundView.topAnchor.constraint(equalTo: self.topAnchor))
-    constraints.append(backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor))
-    constraints.append(backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor))
-    constraints.append(backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor))
-    NSLayoutConstraint.activate(constraints)
+    backgroundView.topAnchor(equal: self.topAnchor)
+    backgroundView.bottomAnchor(equal: self.bottomAnchor)
+    backgroundView.trailingAnchor(equal: self.trailingAnchor)
+    backgroundView.leadingAnchor(equal: self.leadingAnchor)
   }
 
   private func insertContainer() {
