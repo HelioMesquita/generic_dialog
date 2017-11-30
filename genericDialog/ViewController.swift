@@ -6,9 +6,6 @@ class ViewController: UIViewController {
     self.view.addSubview(dialog)
     dialog.create(image: #imageLiteral(resourceName: "iconHeader"), title: "Valide os Documentos!", description: "Para continuar usando o GetNinjas, você precisa validar seus documentos. Isso garante a segurança dos clientes e dos profissionais.", buttonTitle: "Tentar Enviar Novamente")
     dialog.addButton(title: "vivamus quis")
-//    let button = dialog.getFirstButton() as! UIButton
-//    button.addTarget(self, action: #selector(butao1), for: .touchUpInside)
-
   }
 
   func butao1() {
