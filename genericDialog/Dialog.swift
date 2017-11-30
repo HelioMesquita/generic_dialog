@@ -33,10 +33,10 @@ class Dialog: UIView {
 
   override func updateConstraints() {
     super.updateConstraints()
-    self.topAnchor(equal: superview!.topAnchor)
-    self.bottomAnchor(equal: superview!.bottomAnchor)
-    self.trailingAnchor(equal: superview!.trailingAnchor)
-    self.leadingAnchor(equal: superview!.leadingAnchor)
+    topAnchor(equal: superview!.topAnchor)
+    bottomAnchor(equal: superview!.bottomAnchor)
+    trailingAnchor(equal: superview!.trailingAnchor)
+    leadingAnchor(equal: superview!.leadingAnchor)
   }
 
   private func insertBackgroundView() {
@@ -44,12 +44,12 @@ class Dialog: UIView {
     backgroundView.backgroundColor = UIColor.black
     let dismissGesture = UITapGestureRecognizer(target: self, action:  #selector(dismissAction))
     backgroundView.addGestureRecognizer(dismissGesture)
-    self.addSubview(backgroundView)
+    addSubview(backgroundView)
     backgroundView.translatesAutoresizingMaskIntoConstraints = false
-    backgroundView.topAnchor(equal: self.topAnchor)
-    backgroundView.bottomAnchor(equal: self.bottomAnchor)
-    backgroundView.trailingAnchor(equal: self.trailingAnchor)
-    backgroundView.leadingAnchor(equal: self.leadingAnchor)
+    backgroundView.topAnchor(equal: topAnchor)
+    backgroundView.bottomAnchor(equal: bottomAnchor)
+    backgroundView.trailingAnchor(equal: trailingAnchor)
+    backgroundView.leadingAnchor(equal: leadingAnchor)
   }
 
   private func insertContainer() {
@@ -57,7 +57,7 @@ class Dialog: UIView {
     containerView.backgroundColor = UIColor.white
     containerView.accessibilityIdentifier = "containerView"
     containerView.layer.cornerRadius = 6
-    self.addSubview(containerView)
+    addSubview(containerView)
     containerView.translatesAutoresizingMaskIntoConstraints = false
     containerView.horizontalCenter(equal: centerXAnchor)
     containerView.verticalCenter(equal: centerYAnchor)
