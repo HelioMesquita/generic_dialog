@@ -31,10 +31,10 @@ class Dialog: UIView {
   override func updateConstraints() {
     super.updateConstraints()
     var constraints = [NSLayoutConstraint]()
-    constraints.append(self.topAnchor.constraint(equalTo: superview!.topAnchor))
-    constraints.append(self.trailingAnchor.constraint(equalTo: superview!.trailingAnchor))
-    constraints.append(self.leadingAnchor.constraint(equalTo: superview!.leadingAnchor))
-    constraints.append(self.bottomAnchor.constraint(equalTo: superview!.bottomAnchor))
+    constraints.append(self.centerXAnchor.constraint(equalTo: superview!.centerXAnchor))
+    constraints.append(self.centerYAnchor.constraint(equalTo: superview!.centerYAnchor))
+    constraints.append(self.widthAnchor.constraint(equalToConstant: superview!.frame.width))
+    constraints.append(self.heightAnchor.constraint(equalToConstant: superview!.frame.height))
     NSLayoutConstraint.activate(constraints)
   }
 
@@ -46,11 +46,10 @@ class Dialog: UIView {
     containerView.layer.cornerRadius = 6
     self.addSubview(containerView)
     var constraints = [NSLayoutConstraint]()
-//    constraints.append(containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 16))
-    constraints.append(containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)) //WIP
     constraints.append(containerView.centerXAnchor.constraint(equalTo: self.centerXAnchor))
     constraints.append(containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor))
     constraints.append(containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150))
+    constraints.append(containerView.widthAnchor.constraint(equalToConstant: superview!.frame.width - 32)) // ??
     NSLayoutConstraint.activate(constraints)
   }
 
@@ -63,11 +62,9 @@ class Dialog: UIView {
     let containerView = getContainerView()
     containerView.addSubview(imageView)
     var constraints = [NSLayoutConstraint]()
-    //    constraints.append(label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16))
-    constraints.append(imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     constraints.append(imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20))
     constraints.append(imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-    constraints.append(imageView.heightAnchor.constraint(equalToConstant: 60))
+    constraints.append(imageView.heightAnchor.constraint(equalToConstant: 100))
     NSLayoutConstraint.activate(constraints)
   }
   
@@ -130,10 +127,11 @@ class Dialog: UIView {
     } else {
       constraints.append(button.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20))
     }
-    constraints.append(button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0))
+    constraints.append(button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 20))
     constraints.append(button.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
     constraints.append(button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     NSLayoutConstraint.activate(constraints)
+    containerView.layoutIfNeeded()
   }
 
   func configureBackground() {
@@ -179,6 +177,4 @@ class Dialog: UIView {
     }
     return description
   }
-
-
 }
