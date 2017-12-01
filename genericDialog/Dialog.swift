@@ -127,6 +127,7 @@ class Dialog: UIView {
     borderedButton.setTitle(title, for: .normal)
     borderedButton.setTitleColor(UIColor.blue, for: .normal)
     borderedButton.layer.borderWidth = 1
+    borderedButton.layer.borderColor = UIColor.blue.cgColor
     borderedButton.layer.cornerRadius = 4
     containerView.addSubview(borderedButton)
     borderedButton.translatesAutoresizingMaskIntoConstraints = false
