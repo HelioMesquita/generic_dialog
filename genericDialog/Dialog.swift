@@ -10,14 +10,6 @@ class Dialog: UIView {
   private var imageView: UIImageView!
   private var backgroundView: UIView!
 
-  func getFilledButton() -> UIButton? {
-    return filledButton
-  }
-
-  func getBorderedButton() -> UIButton? {
-    return borderedButton
-  }
-
   init() {
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
@@ -25,6 +17,14 @@ class Dialog: UIView {
 
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func updateConstraints() {
+    super.updateConstraints()
+    topAnchor(equal: superview!)
+    bottomAnchor(equal: superview!)
+    trailingAnchor(equal: superview!)
+    leadingAnchor(equal: superview!)
   }
 
   func create(image: UIImage, title: String, description: String, buttonTitle: String) {
@@ -40,6 +40,14 @@ class Dialog: UIView {
     insertBorderedButton(title)
   }
 
+  func getFilledButton() -> UIButton? {
+    return filledButton
+  }
+
+  func getBorderedButton() -> UIButton? {
+    return borderedButton
+  }
+
   func update(image: UIImage, title: String, description: String, buttonTitle: String) {
     imageView.image = image
     titleLabel.text = title
@@ -49,14 +57,6 @@ class Dialog: UIView {
 
   func updateButton(buttonTitle: String) {
     borderedButton.setTitle(buttonTitle, for: .normal)
-  }
-
-  override func updateConstraints() {
-    super.updateConstraints()
-    topAnchor(equal: superview!)
-    bottomAnchor(equal: superview!)
-    trailingAnchor(equal: superview!)
-    leadingAnchor(equal: superview!)
   }
 
   private func insertBackgroundView() {
@@ -90,7 +90,7 @@ class Dialog: UIView {
     containerView.leadingAnchor(equal: self, constant: 16)
   }
 
-  func insertImageView(_ image: UIImage) {
+  private func insertImageView(_ image: UIImage) {
     imageView = UIImageView(frame: .zero)
     imageView.contentMode = .scaleAspectFit
     imageView.image = image
@@ -101,7 +101,7 @@ class Dialog: UIView {
     imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
   }
 
-  func insertTitle(_ title: String) {
+  private func insertTitle(_ title: String) {
     titleLabel = UILabel(frame: .zero)
     titleLabel.text = title
     titleLabel.textColor = UIColor.black
@@ -115,7 +115,7 @@ class Dialog: UIView {
     titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24).isActive = true
   }
 
-  func insertDescription(_ description: String) {
+  private func insertDescription(_ description: String) {
     descriptionLabel = UILabel(frame: .zero)
     descriptionLabel.text = description
     descriptionLabel.textColor = UIColor.black
@@ -129,7 +129,7 @@ class Dialog: UIView {
     descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
   }
 
-  func insertFilledButton(_ title: String) {
+  private func insertFilledButton(_ title: String) {
     filledButton = UIButton(frame: .zero)
     filledButton.setTitle(title, for: .normal)
     filledButton.setTitleColor(UIColor.white, for: .normal)
@@ -146,7 +146,7 @@ class Dialog: UIView {
     buttonTopAnchor.isActive = true
   }
 
-  func insertBorderedButton(_ title: String) {
+  private func insertBorderedButton(_ title: String) {
     borderedButton = UIButton(frame: .zero)
     borderedButton.setTitle(title, for: .normal)
     borderedButton.setTitleColor(UIColor.blue, for: .normal)
