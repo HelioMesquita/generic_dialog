@@ -42,7 +42,7 @@ class Dialog: UIView {
 
   private func insertBackgroundView() {
     backgroundView = UIView(frame: .zero)
-    backgroundView.backgroundColor = UIColor.black
+    backgroundView.backgroundColor = UIColor(displayP3Red: 83/255, green: 110/255, blue: 123/255, alpha: 0.6)
     let dismissGesture = UITapGestureRecognizer(target: self, action:  #selector(dismissAction))
     backgroundView.addGestureRecognizer(dismissGesture)
     addSubview(backgroundView)
@@ -57,6 +57,11 @@ class Dialog: UIView {
     containerView = UIView(frame: .zero)
     containerView.backgroundColor = UIColor.white
     containerView.layer.cornerRadius = 6
+    containerView.layer.shadowColor = UIColor.black.cgColor
+    containerView.layer.shadowOffset = CGSize(width: 0, height: 24)
+    containerView.layer.shadowOpacity = 0.36
+    containerView.layer.shadowRadius = 24.0
+    containerView.layer.masksToBounds =  false
     addSubview(containerView)
     containerView.translatesAutoresizingMaskIntoConstraints = false
     containerView.centerYAnchor(equal: self)
