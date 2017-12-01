@@ -122,10 +122,9 @@ class Dialog: UIView {
     containerView.addSubview(filledButton)
     var constraints = [NSLayoutConstraint]()
     let buttonTop = filledButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24)
-    buttonTop.identifier = "buttonTop"
+    buttonTop.identifier = "buttonTopConstraint"
     constraints.append(buttonTop)
-    let containerBottom = containerView.bottomAnchor.constraint(equalTo: filledButton.bottomAnchor, constant: 20)
-    constraints.append(containerBottom)
+    constraints.append(containerView.bottomAnchor.constraint(equalTo: filledButton.bottomAnchor, constant: 20))
     constraints.append(filledButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     constraints.append(filledButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
     NSLayoutConstraint.activate(constraints)
@@ -142,13 +141,13 @@ class Dialog: UIView {
     containerView.addSubview(borderedButton)
     var constraints = [NSLayoutConstraint]()
     let buttonTop = containerView.constraints.first(where: { constraint in
-      return constraint.identifier == "buttonTop"
+      return constraint.identifier == "buttonTopConstraint"
     })
     NSLayoutConstraint.deactivate([buttonTop!])
+    constraints.append(filledButton.topAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 8))
     constraints.append(borderedButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24))
     constraints.append(borderedButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
     constraints.append(borderedButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    constraints.append(filledButton.topAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 24))
     NSLayoutConstraint.activate(constraints)
   }
 
