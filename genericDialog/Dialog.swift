@@ -2,13 +2,21 @@ import UIKit
 
 class Dialog: UIView {
 
-  var filledButton: UIButton!
-  var borderedButton: UIButton!
-  var containerView: UIView!
-  var titleLabel: UILabel!
-  var descriptionLabel: UILabel!
-  var imageView: UIImageView!
-  var backgroundView: UIView!
+  private var filledButton: UIButton!
+  private var borderedButton: UIButton!
+  private var containerView: UIView!
+  private var titleLabel: UILabel!
+  private var descriptionLabel: UILabel!
+  private var imageView: UIImageView!
+  private var backgroundView: UIView!
+
+  func getFilledButton() -> UIButton? {
+    return filledButton
+  }
+
+  func getBorderedButton() -> UIButton? {
+    return borderedButton
+  }
 
   init() {
     super.init(frame: .zero)
