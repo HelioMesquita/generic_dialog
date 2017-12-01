@@ -40,6 +40,17 @@ class Dialog: UIView {
     insertBorderedButton(title)
   }
 
+  func update(image: UIImage, title: String, description: String, buttonTitle: String) {
+    imageView.image = image
+    titleLabel.text = title
+    descriptionLabel.text = description
+    filledButton.setTitle(buttonTitle, for: .normal)
+  }
+
+  func updateButton(buttonTitle: String) {
+    borderedButton.setTitle(buttonTitle, for: .normal)
+  }
+
   override func updateConstraints() {
     super.updateConstraints()
     topAnchor(equal: superview!)

@@ -24,5 +24,3 @@ class ViewController: UIViewController {
     print("target button 2")
   }
 }
-
-
