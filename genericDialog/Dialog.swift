@@ -3,6 +3,7 @@ import UIKit
 class Dialog: UIView {
 
   var filledButton: UIButton!
+  var borderedButton: UIButton!
   var containerView: UIView!
   var titleLabel: UILabel!
   var descriptionLabel: UILabel!
@@ -33,10 +34,10 @@ class Dialog: UIView {
 
   override func updateConstraints() {
     super.updateConstraints()
-    topAnchor(equal: superview!.topAnchor)
-    bottomAnchor(equal: superview!.bottomAnchor)
-    trailingAnchor(equal: superview!.trailingAnchor)
-    leadingAnchor(equal: superview!.leadingAnchor)
+    topAnchor(equal: superview!)
+    bottomAnchor(equal: superview!)
+    trailingAnchor(equal: superview!)
+    leadingAnchor(equal: superview!)
   }
 
   private func insertBackgroundView() {
@@ -46,24 +47,23 @@ class Dialog: UIView {
     backgroundView.addGestureRecognizer(dismissGesture)
     addSubview(backgroundView)
     backgroundView.translatesAutoresizingMaskIntoConstraints = false
-    backgroundView.topAnchor(equal: topAnchor)
-    backgroundView.bottomAnchor(equal: bottomAnchor)
-    backgroundView.trailingAnchor(equal: trailingAnchor)
-    backgroundView.leadingAnchor(equal: leadingAnchor)
+    backgroundView.topAnchor(equal: self)
+    backgroundView.bottomAnchor(equal: self)
+    backgroundView.leadingAnchor(equal: self)
+    backgroundView.trailingAnchor(equal: self)
   }
 
   private func insertContainer() {
     containerView = UIView(frame: .zero)
     containerView.backgroundColor = UIColor.white
-    containerView.accessibilityIdentifier = "containerView"
     containerView.layer.cornerRadius = 6
     addSubview(containerView)
     containerView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.horizontalCenter(equal: centerXAnchor)
-    containerView.verticalCenter(equal: centerYAnchor)
+    containerView.centerYAnchor(equal: self)
+    containerView.centerXAnchor(equal: self)
     containerView.heightAnchor(greater: 150)
-    containerView.trailingAnchor(equal: trailingAnchor, constant: -16)
-    containerView.leadingAnchor(equal: leadingAnchor, constant: 16)
+    containerView.trailingAnchor(equal: self, constant: -16)
+    containerView.leadingAnchor(equal: self, constant: 16)
   }
 
   func insertImageView(_ image: UIImage) {
@@ -72,11 +72,9 @@ class Dialog: UIView {
     imageView.image = image
     containerView.addSubview(imageView)
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 36))
-    constraints.append(imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-    constraints.append(imageView.heightAnchor.constraint(equalToConstant: 100))
-    NSLayoutConstraint.activate(constraints)
+    imageView.topAnchor(equal: containerView, constant: 36)
+    imageView.centerXAnchor(equal: containerView)
+    imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
   }
 
   func insertTitle(_ title: String) {
@@ -87,12 +85,10 @@ class Dialog: UIView {
     titleLabel.numberOfLines = 2
     containerView.addSubview(titleLabel)
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24))
-    constraints.append(titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-    constraints.append(titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-    constraints.append(titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    NSLayoutConstraint.activate(constraints)
+    titleLabel.centerXAnchor(equal: imageView)
+    titleLabel.leadingAnchor(equal: containerView, constant: 16)
+    titleLabel.trailingAnchor(equal: containerView, constant: -16)
+    titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24).isActive = true
   }
 
   func insertDescription(_ description: String) {
@@ -103,12 +99,10 @@ class Dialog: UIView {
     descriptionLabel.textAlignment = .center
     containerView.addSubview(descriptionLabel)
     descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-    var constraints = [NSLayoutConstraint]()
-    constraints.append(descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16))
-    constraints.append(descriptionLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor))
-    constraints.append(descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    constraints.append(descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-    NSLayoutConstraint.activate(constraints)
+    descriptionLabel.centerXAnchor(equal: imageView)
+    descriptionLabel.leadingAnchor(equal: containerView, constant: 16)
+    descriptionLabel.trailingAnchor(equal: containerView, constant: -16)
+    descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
   }
 
   func insertFilledButton(_ title: String) {
@@ -116,39 +110,33 @@ class Dialog: UIView {
     filledButton.setTitle(title, for: .normal)
     filledButton.setTitleColor(UIColor.white, for: .normal)
     filledButton.backgroundColor = UIColor.blue
-    filledButton.accessibilityIdentifier = "firstButton"
     filledButton.layer.cornerRadius = 4
-    filledButton.translatesAutoresizingMaskIntoConstraints = false
     containerView.addSubview(filledButton)
-    var constraints = [NSLayoutConstraint]()
-    let buttonTop = filledButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24)
-    buttonTop.identifier = "buttonTopConstraint"
-    constraints.append(buttonTop)
-    constraints.append(containerView.bottomAnchor.constraint(equalTo: filledButton.bottomAnchor, constant: 20))
-    constraints.append(filledButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-    constraints.append(filledButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    NSLayoutConstraint.activate(constraints)
+    filledButton.translatesAutoresizingMaskIntoConstraints = false
+    containerView.bottomAnchor(equal: filledButton, constant: 20)
+    filledButton.leadingAnchor(equal: containerView, constant: 16)
+    filledButton.trailingAnchor(equal: containerView, constant: -16)
+    containerView.bottomAnchor.constraint(equalTo: filledButton.bottomAnchor, constant: 20).isActive = true
+    let buttonTopAnchor = filledButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24)
+    buttonTopAnchor.identifier = "buttonTopAnchor"
+    buttonTopAnchor.isActive = true
   }
 
   func insertBorderedButton(_ title: String) {
-    let borderedButton = UIButton(frame: .zero)
-    borderedButton.translatesAutoresizingMaskIntoConstraints = false
+    borderedButton = UIButton(frame: .zero)
     borderedButton.setTitle(title, for: .normal)
     borderedButton.setTitleColor(UIColor.blue, for: .normal)
-    borderedButton.accessibilityIdentifier = "secondButton"
     borderedButton.layer.borderWidth = 1
     borderedButton.layer.cornerRadius = 4
     containerView.addSubview(borderedButton)
-    var constraints = [NSLayoutConstraint]()
-    let buttonTop = containerView.constraints.first(where: { constraint in
-      return constraint.identifier == "buttonTopConstraint"
-    })
-    NSLayoutConstraint.deactivate([buttonTop!])
-    constraints.append(filledButton.topAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 8))
-    constraints.append(borderedButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24))
-    constraints.append(borderedButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16))
-    constraints.append(borderedButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16))
-    NSLayoutConstraint.activate(constraints)
+    borderedButton.translatesAutoresizingMaskIntoConstraints = false
+    borderedButton.leadingAnchor(equal: containerView, constant: 16)
+    borderedButton.trailingAnchor(equal: containerView, constant: -16)
+    containerView.constraints.first(where: { (constraint) in
+      return constraint.identifier == "buttonTopAnchor"
+    })?.isActive = false
+    filledButton.topAnchor.constraint(equalTo: borderedButton.bottomAnchor, constant: 8).isActive = true
+    borderedButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24).isActive = true
   }
 
   func dismissAction(sender: UITapGestureRecognizer) {
